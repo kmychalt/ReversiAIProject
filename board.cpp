@@ -13,19 +13,19 @@ Board::Board() {
     board[BOARD_SIZE / 2][BOARD_SIZE / 2 - 1] = 2;
 }
 
-/* PARAMETERS: none
+/* PARAMETERS: pointer to fitness array
  * RETURN VALUE: reference to fitness array
  * PURPOSE: to return an array that contains two values: the first being the 
  * fitness value for white, and the second value being the fitness value for
  * black. In this function we are going to reuse the function that we already
  * wrote that gets fitness with one parameter
  */
-int& Board::getFitness() {
+int& Board::getFitness(int* fitness) {
     fitness[0] = getFitness(1);
     fitness[1] = getFitness(2);
     cout << "Fitness for white is: " << fitness[0] << endl;
     cout << "Fitness for black is: " << fitness[1] << endl;
-    return &fitness;
+    
 }
 
 /* PARAMETERS: integer color that corresponds to the color on the board being 

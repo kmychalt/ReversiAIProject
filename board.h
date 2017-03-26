@@ -8,7 +8,7 @@
 class Board {
 public:
     Board();
-    int& getFitness();
+    int& getFitness(int*);
     int getFitness(int color);
     void printBoard();
 private:
