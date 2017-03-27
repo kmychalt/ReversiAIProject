@@ -120,41 +120,394 @@ void Board::printBoard() {
  */
 bool Board::checkMove(int coords[2],int color)
 {
+  int checkColor = 0;
+  int checkCoords[2];
+  if(color == 1)
+    checkColor = 2;
+  else
+    checkColor = 1;
+
   if(coords[0] >= BOARD_SIZE || coords[1] >= BOARD_SIZE || coords[0] < 0 || coords[1] < 0)
     return false;
   if(board[coords[0]][coords[1]] != 0)
     return false;
   if(coords[0] == 0)
     if(coords[1] == 0)
-      cout <<"tl" << endl;
+      {
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (0,0) special case
+	    checkCoords[1] = coords[1];  //       x x o
+	    if(checkLine(checkCoords, 3, color))//       x x x
+	       return true;
+	  }
+	if(board[coords[0]+1][coords[1]+1] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (0,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 4, color))//       x x o
+	       return true;
+	  }
+	if(board[coords[0]][coords[1]+1] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x for (0,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x
+	    if(checkLine(checkCoords, 5, color))//       x o x 
+	      return true;
+	  }
+	return false;
+      }
     else if(coords[1] == 7)
       {
 	//don't check bottom and left
+
+	if(board[coords[0]][coords[1]-1] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x for (0,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]-1] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x o for (0,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 2, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (0,7) special case
+	    checkCoords[1] = coords[1];  //       x x o 
+	    if(checkLine(checkCoords, 3, color))//       x x x
+	      return true;
+	  }
+	return false;
       }
     else
       {
 	//don't check left
+
+	if(board[coords[0]][coords[1]-1] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x for (0,y) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x o for (0,y) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 2, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (0,y) special case
+	    checkCoords[1] = coords[1];  //       x x o 
+	    if(checkLine(checkCoords, 3, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (0,y) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 4, color))//       x x o
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x for (0,y) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 5, color))//       x o x
+	      return true;
+	  }
+	return false;
       }
   if(coords[0] == 7)
     if(coords[1] == 0){
       //don't check top or right
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (7,0) special case
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7, color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (7,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 6, color))//       o x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x for (7,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 5, color))//       x o x
+	      return true;
+	  }
+	return false;
+
     }
     else if(coords[1] == 7)
       {
 	//don't check bottom or right
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x for (7,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (7,7) special case
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7,color))//       x x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check o x x for (7,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 8,color))//       x x x
+	      return true;
+	  }
+	return false;
+
       }
     else 
       {
+
 	//don't check right
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x for (7,y) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x for (7,y) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 5,color))//       x o x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (7,y) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 6,color))//       o x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (7,y) special case
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7,color))//       x x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check o x x for (7,y) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 8,color))//       x x x
+	      return true;
+	  }
+
+	return false; 
       }
   if(coords[1] == 0)
     {
       //don't check top
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (x,0) special case
+	    checkCoords[1] = coords[1];  //       x x o 
+	    if(checkLine(checkCoords, 3,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (x,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 4,color))//       x x o
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x for (x,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 5,color))//       x o x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (x,0) special case
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 6,color))//       o x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (x,0) special case
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7,color))//       x x x
+	      return true;
+	  }
+
+      return false;
     }
   if(coords[1] == 7)
     {
       //don't check bottom
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x for (x,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;  // check x x o for (x,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 2,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x for (x,7) special case
+	    checkCoords[1] = coords[1];//       x x o 
+	    if(checkLine(checkCoords, 3,color))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x for (x,7) special case
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7,color))//       x x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check o x x for (x,7) special case
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 8,color))//       x x x
+	      return true;
+	  }
+
+      return false;
     }
   //check everything
-     return true; 
+
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x o x 
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 1))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x o 
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 2))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x 
+	    checkCoords[1] = coords[1];  //       x x o 
+	    if(checkLine(checkCoords, 3))//       x x x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]+1;// check x x x 
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 4))//       x x o
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0];  // check x x x 
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 5))//       x o x
+	      return true;
+	  }
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x 
+	    checkCoords[1] = coords[1]+1;//       x x x 
+	    if(checkLine(checkCoords, 6))//       o x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check x x x 
+	    checkCoords[1] = coords[1];  //       o x x 
+	    if(checkLine(checkCoords, 7))//       x x x
+	      return true;
+	  }
+
+	if(board[coords[0]+1][coords[1]] == checkColor)
+	  {
+	    checkCoords[0] = coords[0]-1;// check o x x 
+	    checkCoords[1] = coords[1]-1;//       x x x 
+	    if(checkLine(checkCoords, 8))//       x x x
+	      return true;
+	  }
+     return false; 
+}
+
+bool checkLine(int coords[2], int direction)
+{
+  if(direction == 1)
+    {
+      for(int i = coords[1]; i > 0; i++)
+	{     
+	  //check up
+	  if(board[coords[0]][i]
+	}
+    }
+  if(direction == 2)
+    {
+
+    }
+  if(direction == 3)
+    {
+
+    }
+  if(direction == 4)
+    {
+
+    }
+  if(direction == 5)
+    {
+
+    } 
+  if(direction == 6)
+    {
+
+    }
+  if(direction == 7)
+    {
+
+    }
+  if(direction == 8)
+    {
+
+    }
 }
