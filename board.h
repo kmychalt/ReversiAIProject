@@ -8,9 +8,12 @@
 class Board {
 public:
     Board();
-    int& getFitness(int*);
+    void getFitness(int*);
     int getFitness(int color);
     void printBoard();
+    void getBoardStatus(int getBoard[BOARD_SIZE][BOARD_SIZE]);
+    void setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE]);
+    bool checkMove(int coords[2], int color);
 private:
     int fitness[NUM_OF_COLORS];
     int board[BOARD_SIZE][BOARD_SIZE];
