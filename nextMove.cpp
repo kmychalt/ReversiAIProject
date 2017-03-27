@@ -1,38 +1,49 @@
+#include <stdio.h>
 #include "board.h"
 #include "nextMove.h"
-
-void createTree() {
-    //insert root node
-    int ply = 2;
-    while (ply <= NUM_PLY) {
-        //to start:
-        //createSubTree(root Node)
-        //ply++;
-        //createSubTree(child Nodes)
-        //etc.
-    }
+    
+Tree::Tree() {
+    root = NULL;
 }
 
-void createSubTree(Node* node) {
+Tree::~Tree() {
+    destroyTree(root);
+}
+
+void Tree::createTree() {
+    
+}
+//incomplete function, need some key value for identification
+void Tree::insert(Node *leaf, int childNum) {
+    //have previous node point to current node with number to indicate 
+    //which child it is
+    leaf->pointToNext[childNum];
+}
+
+//incomplete function, need some key value for identification
+Node Tree::search(Node* leaf, int childNum) {
     
 }
 
-Board createMove(Board board, int currentColor) {
+void Tree::destroyTree(Node* leaf) {
+    if (leaf != NULL) {
+        for (int i = 0; i < MAX_POSS_MOVES; i++) {
+            destroyTree(leaf->pointToNext[i]);
+        }
+    }
+    delete leaf; //delete calls de-constructor and deallocates memory
+}
+
+Board Tree::createMove(Board board, int currentColor) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            //if board.checkMove(coords, color) is true, 
+            //if board.checkMove(coordinates, color) is true, 
             //then return new board
                 return board;    
         }
     }
 }
 
-void insert(Node* prev, int childNum) {
-    //have prev node point to current node with number to indicate 
-    //which child it is
-    prev->pointToNext[childNum];
-}
-
-void alphaBeta() {
+void Tree::alphaBeta() {
     //traverse tree, looking for alpha-beta values
 }

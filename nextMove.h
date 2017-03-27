@@ -4,21 +4,26 @@
 #ifndef NEXTMOVE_H
 #define	NEXTMOVE_H
 
-class Tree {
-public:
-    struct Node {
+struct Node {
         Board board;
         int fitWhite;
         int fitBlack;
-        int *pointToNext[MAX_POSS_MOVES];
-    };
+        Node *pointToNext[MAX_POSS_MOVES];
+};
+
+class Tree {
+public:
+    Tree();
+    ~Tree();
+    
     void createTree();
-    void createSubTree(Node* node);
+    void insert(Node *leaf, int childNum);
+    Node search(Node *leaf, int childNum);
+    void destroyTree(Node *leaf);
     Board createMove(Board board, int currentColor);
-    void insert(Node* prev, int childNum);
     void alphaBeta();
 private:
-    
+    Node *root;
 };
 #endif	/* NEXTMOVE_H */
 

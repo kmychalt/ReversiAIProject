@@ -12,8 +12,8 @@ public:
     int getFitness(int color);
     void printBoard();
 private:
-    int board[BOARD_SIZE][BOARD_SIZE];
     int fitness[NUM_OF_COLORS];
+    int board[BOARD_SIZE][BOARD_SIZE];
 };
 
 #endif	

@@ -6,7 +6,11 @@ using namespace std;
 /*PURPOSE: constructor, initializes pieces on the board to the starting position
  */
 Board::Board() {
-    board[BOARD_SIZE][BOARD_SIZE];
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            board[i][j] = 0;
+        }
+    }
     board[BOARD_SIZE / 2 - 1][BOARD_SIZE / 2 - 1] = 1;
     board[BOARD_SIZE / 2][BOARD_SIZE / 2] = 1;
     board[BOARD_SIZE / 2 - 1][BOARD_SIZE / 2] = 2;
@@ -52,5 +56,11 @@ int Board::getFitness(int color) {
 
 
 void Board::printBoard() {
-    
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            cout << board[i][j];
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
