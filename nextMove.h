@@ -17,6 +17,7 @@ public:
     ~Tree();
     
     void createTree();
+    void createSubTree(Node *start);
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);
     void destroyTree(Node *leaf);
