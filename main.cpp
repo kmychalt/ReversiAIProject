@@ -30,21 +30,36 @@ int main(int argc, char** argv) {
 	  }
 	    cout << "sumMoves: " << sumMoves << endl;
       }
+
     b.setNewBoard(boardBits);
     b.printBoard();
-    
+    move[0] = 0;
+    move[1] = 0;
     b.getBoardStatus(boardBits);
-    for(int i = 1; i < 7; i++)
+    for(int i = 0; i < 8; i++)
       {
-	boardBits[0][i] = 2;
+	for(int j = 0; j < 8; j++)
+	  {
+	    boardBits[j][i] = 2;
+	  }
       }
-    boardBits[0][7] = 1;
+
+    boardBits[3][0] = 0;//start
+    //possible moves
+    boardBits[0][0] = 0;
+    boardBits[7][0] = 1;
+    boardBits[3][7] = 0;
+    boardBits[0][3] = 0;
+    boardBits[7][4] = 0;
+
+    move[0] = 3;
+    move[1] = 0;
+    //boardBits[7][7] = 1;
     b.setNewBoard(boardBits);
     if(b.checkMove(move, 1))
       cout << "valid Move" << endl;
     else
       cout << "invalid Move" << endl;
-    boardBits[0][0] = 1;
     b.setNewBoard(boardBits);
     b.printBoard();
     return 0;
