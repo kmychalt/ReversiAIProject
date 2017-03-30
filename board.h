@@ -14,8 +14,8 @@ public:
     void getBoardStatus(int getBoard[BOARD_SIZE][BOARD_SIZE]);
     void setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE]);
     bool checkMove(int coords[2], int color);
-    bool checkLine(int coords[2], int direction,int color);
 private:
+    bool checkLine(int coords[2], int direction, int color);
     int fitness[NUM_OF_COLORS];
     int board[BOARD_SIZE][BOARD_SIZE];
 };

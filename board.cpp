@@ -94,8 +94,10 @@ void Board::setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE])
  */
 
 void Board::printBoard() {
+  cout << "  0 1 2 3 4 5 6 7" << endl;
   for(int i = 0; i < BOARD_SIZE; i++)
     {
+      cout << i << "|";
       for(int j = 0; j < BOARD_SIZE; j++)
 	{
 	  if(board[i][j] == 1)
@@ -109,7 +111,7 @@ void Board::printBoard() {
 	  else
 	    cout << /*board[i][j] <<*/" |";
 	}
-      cout << endl;
+      cout <<  endl;
     }    
 }
 
@@ -408,106 +410,187 @@ bool Board::checkMove(int coords[2],int color)
       return false;
     }
   //check everything
+  //cout << "in check everything in checkMove" << endl; //TEMPORARY REMOVE
 
-
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]][coords[1]-1] == checkColor)
 	  {
-	    checkCoords[0] = coords[0];  // check x o x 
-	    checkCoords[1] = coords[1]-1;//       x x x 
-	    if(checkLine(checkCoords, 1))//       x x x
+	    checkCoords[0] = coords[0];         // check x o x 
+	    checkCoords[1] = coords[1]-1;       //       x x x 
+	    if(checkLine(checkCoords, 1, color))//       x x x
 	      return true;
 	  }
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]+1][coords[1]-1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]+1;// check x x o 
 	    checkCoords[1] = coords[1]-1;//       x x x 
-	    if(checkLine(checkCoords, 2))//       x x x
+	    if(checkLine(checkCoords, 2, color))//       x x x
 	      return true;
 	  }
 	if(board[coords[0]+1][coords[1]] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]+1;// check x x x 
 	    checkCoords[1] = coords[1];  //       x x o 
-	    if(checkLine(checkCoords, 3))//       x x x
+	    if(checkLine(checkCoords, 3, color))//       x x x
 	      return true;
 	  }
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]+1][coords[1]+1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]+1;// check x x x 
 	    checkCoords[1] = coords[1]+1;//       x x x 
-	    if(checkLine(checkCoords, 4))//       x x o
+	    if(checkLine(checkCoords, 4, color))//       x x o
 	      return true;
 	  }
 
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]][coords[1]+1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0];  // check x x x 
 	    checkCoords[1] = coords[1]+1;//       x x x 
-	    if(checkLine(checkCoords, 5))//       x o x
+	    if(checkLine(checkCoords, 5, color))//       x o x
 	      return true;
 	  }
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]-1][coords[1]+1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]-1;// check x x x 
 	    checkCoords[1] = coords[1]+1;//       x x x 
-	    if(checkLine(checkCoords, 6))//       o x x
+	    if(checkLine(checkCoords, 6, color))//       o x x
 	      return true;
 	  }
 
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]-1][coords[1]] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]-1;// check x x x 
 	    checkCoords[1] = coords[1];  //       o x x 
-	    if(checkLine(checkCoords, 7))//       x x x
+	    if(checkLine(checkCoords, 7, color))//       x x x
 	      return true;
 	  }
 
-	if(board[coords[0]+1][coords[1]] == checkColor)
+	if(board[coords[0]-1][coords[1]-1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0]-1;// check o x x 
 	    checkCoords[1] = coords[1]-1;//       x x x 
-	    if(checkLine(checkCoords, 8))//       x x x
+	    if(checkLine(checkCoords, 8, color))//       x x x
 	      return true;
 	  }
      return false; 
 }
 
-bool checkLine(int coords[2], int direction)
+bool Board::checkLine(int coords[2], int direction, int colorToFind)
 {
-  if(direction == 1)
+  int otherColor = 0;
+  if(colorToFind == 1)
+    otherColor = 2;
+  else
+    otherColor = 1;
+  if(direction == 1)//done
     {
-      for(int i = coords[1]; i > 0; i++)
+      for(int i = coords[1]; i >= 0; i--)
 	{     
 	  //check up
-	  if(board[coords[0]][i]
+	  if(board[coords[0]][i] == colorToFind)
+	    return true;
+	  else if(board[coords[0]][i] == 0)
+	    return false;
 	}
+      return false;
     }
   if(direction == 2)
     {
-
+      int j = coords[0];
+      for(int i = coords[1]; i >= 0; i--)
+	{    
+	  //check up
+	  if(board[j][i] == colorToFind)
+	    return true;
+	  else if(board[j][i] == 0)
+	    return false;
+	  j++;
+	  if(j == 0)
+	    break;
+	}
+      return false;
     }
   if(direction == 3)
     {
-
+      for(int i = coords[0]; i <= 7; i++)
+	{     
+	  //check up
+	  if(board[i][coords[1]] == colorToFind)
+	    return true;
+	  else if(board[i][coords[1]] == 0)
+	    return false;
+	}
+      return false;
     }
   if(direction == 4)
     {
-
+      int j = coords[1];
+      for(int i = coords[0]; i <= 7; i++)
+	{     
+	  //check up
+	  if(board[i][j] == colorToFind)
+	    return true;
+	  else if(board[i][j] == 0)
+	    return false;
+	  j++;
+	  if(j == 8)
+	    break;
+	}
+      return false;
     }
   if(direction == 5)
     {
-
+      for(int i = coords[1]; i <= 7; i++)
+	{     
+	  //check up
+	  if(board[coords[0]][i] == colorToFind)
+	    return true;
+	  else if(board[coords[0]][i] == 0)
+	    return false;
+	}
+      return false;
     } 
   if(direction == 6)
     {
-
+      int j = coords[1];
+      for(int i = coords[0]; i >= 0; i--)
+	{     
+	  //check up
+	  if(board[i][j] == colorToFind)
+	    return true;
+	  else if(board[i][j] == 0)
+	    return false;
+	  j++;
+	  if(j == 8)
+	    break;
+	}
+      return false;
     }
   if(direction == 7)
     {
-
+      for(int i = coords[0]; i >= 0; i--)
+	{     
+	  //check up
+	  if(board[i][coords[1]] == colorToFind)
+	    return true;
+	  else if(board[i][coords[1]] == 0)
+	    return false;
+	}
+      return false;
     }
   if(direction == 8)
     {
-
+      int j = coords[1];
+      for(int i = coords[0]; i >= 0; i--)
+	{     
+	  //check up
+	  if(board[i][j] == colorToFind)
+	    return true;
+	  else if(board[i][j] == 0)
+	    return false;
+	  j++;
+	  if(j == 0)
+	    break;
+	}
+      return false;
     }
 }
