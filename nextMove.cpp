@@ -45,7 +45,7 @@ void Tree::createSubTree(Node *start) {
 }
 
 //incomplete function, need some key value for identification
-void Tree::insert(Node *leaf, int childNum) {
+/*void Tree::insert(Node *leaf, int childNum) {
     //have previous node point to current node with number to indicate 
     //which child it is
     leaf->pointToNext[childNum];
@@ -54,7 +54,7 @@ void Tree::insert(Node *leaf, int childNum) {
 //incomplete function, need some key value for identification
 Node Tree::search(Node* leaf, int childNum) {
     
-}
+}*/
 
 void Tree::destroyTree(Node* leaf) {
     if (leaf != NULL) {
@@ -65,7 +65,7 @@ void Tree::destroyTree(Node* leaf) {
     delete leaf; //delete calls de-constructor and deallocates memory
 }
 
-Board Tree::createMove(Board board, int currentColor) {
+/*Board Tree::createMove(Board board, int currentColor) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             //if board.checkMove(coordinates, color) is true, 
@@ -73,7 +73,7 @@ Board Tree::createMove(Board board, int currentColor) {
                 return board;    
         }
     }
-}
+}*/
 
 void Tree::alphaBeta() {
     //traverse tree, looking for alpha-beta values
