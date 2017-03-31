@@ -15,6 +15,7 @@ public:
     void setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE]);
     bool checkMove(int coords[2], int color);
     void updateBoardWithMove(int coords[2], int color);
+    bool checkGameOver();
 private:
     bool checkLine(int coords[2], int direction, int color);
     int fitness[NUM_OF_COLORS];

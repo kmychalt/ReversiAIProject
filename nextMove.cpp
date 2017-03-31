@@ -132,28 +132,3 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
 
 
 }
-
-bool Tree::checkGameOver(){
-  
-  for(int i = 0; i < BOARD_SIZE; i++) 
-    { //loop through the board of node were looking at
-      for(int j = 0; j < BOARD_SIZE; j++) 
-	{ 
-	  int coords[2] = {i, j}; //try these coordinates
-	  if(root->board.checkMove(coords, 1))
-	    return false;
-	}
-    }
-
-
-  for(int i = 0; i < BOARD_SIZE; i++) 
-    { //loop through the board of node were looking at
-      for(int j = 0; j < BOARD_SIZE; j++) 
-	{ 
-	  int coords[2] = {i, j}; //try these coordinates
-	  if(root->board.checkMove(coords, 2))
-	    return false;
-	}
-    }
-  return true;
-}

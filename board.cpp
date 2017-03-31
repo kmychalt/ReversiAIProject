@@ -597,7 +597,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
     board[coords[0]][coords[1]] = color;
     //check up
     y--;
-    while (board[coords[0]][y] != color && y != BOARD_SIZE) {
+    while (board[coords[0]][y] != color && board[coords[0]][y] != 0 && y <= 0) {
         y--;
         if (board[coords[0]][y] == color)
             do  {
@@ -608,7 +608,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
     //check down
     y = coords[1];
     y++;
-    while (board[coords[0]][y] != color && y != BOARD_SIZE) {
+    while (board[coords[0]][y] != color && board[coords[0]][y] != 0 && y != BOARD_SIZE) {
         y++;
         if (board[coords[0]][y] == color)
             do  {
@@ -617,14 +617,84 @@ void Board::updateBoardWithMove(int coords[], int color) {
             } while (board[coords[0]][y] != color);
     }
     //check right
-    
+    y = coords[1];
+    x = coords[0];
+    x++;
+    while (board[x][coords[1]] != color && board[x][coords[1]] != 0 && y != BOARD_SIZE) {
+        x++;
+        if (board[x][coords[1]] == color)
+            do {
+                x--;
+                board[x][coords[1]] = color;
+            } while (board[x][coords[1]] != color);
+    }
     //check left
-    
+    x = coords[0];
+    x--;
+    while (board[x][coords[1]] != color && board[x][coords[1]] != 0 && y <= 0) {
+        x--;
+        if (board[x][coords[1]] == color)
+            do {
+                x++;
+                board[x][coords[1]] = color;
+            } while (board[x][coords[1]] != color);
+    }
     //check diagonally up-right
-    
+    x = coords[0];
+    y = coords[1];
+    x--;
+    y++;
+    while(board[x][y] != color && board[x][y] != 0 && x >= 0 && y != BOARD_SIZE) {
+        x--;
+        y++;
+        if (board[x][y] == color) {
+            do {
+                x++;
+                y--;
+                board[x][y] = color;
+            } while (board[x][y] != color);
+        }
+    }
     //check diagonally up-left
-    
+    x = coords[0];
+    y = coords[1];
+    x--;
+    y--;
+    while(board[x][y] != color && board[x][y] != 0 && x >= 0 && y >= 0) {
+        x--;
+        y++;
+        if (board[x][y] == color) {
+            do {
+                x++;
+                y--;
+                board[x][y] = color;
+            } while (board[x][y] != color);
+        }
+    }
     //check diagonally down-right
-    
+   
     //check diagonally down-left
+}
+
+bool Board::checkGameOver(){
+  for(int i = 0; i < BOARD_SIZE; i++) 
+    { //loop through the board of node were looking at
+      for(int j = 0; j < BOARD_SIZE; j++) 
+	{ 
+	  int coords[2] = {i, j}; //try these coordinates
+	  if(checkMove(coords, 1))
+	    return false;
+	}
+    }
+
+  for(int i = 0; i < BOARD_SIZE; i++) 
+    { //loop through the board of node were looking at
+      for(int j = 0; j < BOARD_SIZE; j++) 
+	{ 
+	  int coords[2] = {i, j}; //try these coordinates
+	  if(checkMove(coords, 2))
+	    return false;
+	}
+    }
+  return true;
 }

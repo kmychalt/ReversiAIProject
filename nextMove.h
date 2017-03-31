@@ -27,7 +27,6 @@ public:
     void destroyTree(Node *leaf);
     void AlphaBeta(int suggestedMove[2], int turn);
     int traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color);
-    bool checkGameOver();
 private:
     Node *root;
     bool noMoves;
