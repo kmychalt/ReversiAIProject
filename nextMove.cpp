@@ -146,13 +146,6 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
 	}
     }
   if(max)
-<<<<<<< HEAD
-    leaf->ABvalue = -1;
-
-
-
-}
-=======
     {
       leaf->ABvalue = -1;
       int i = 0;
@@ -198,4 +191,3 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
     }
 }
 
->>>>>>> origin/master
