@@ -7,11 +7,39 @@
 using namespace std;
 
 int main() {
-    Tree t;
-    Board b;
-    Node root;
-    
-    t.createTree(&root);
+
+  int compColor = 0;
+  int userColor = 0;
+  char userChoice = 'a';
+  cout << "Welcome to Reversi, I'll be your opponent today." << endl;
+  cout << "Would you like to be black or white? Keep in mind Black always moves first." << endl;
+  while(userChoice != 'b' && userChoice != 'B' && userChoice != 'w' && userChoice != 'W')
+    {
+      cout << "b/w: ";
+      cin.get(userChoice);
+    }
+  if(userChoice == 'b' || userChoice == 'B')
+    {
+      userColor = 2; 
+      compColor = 1;
+    }
+  else
+    {
+      compColor = 2;
+      userColor = 1;
+    }
+  int startingBoard[BOARD_SIZE][BOARD_SIZE];
+  Board b;
+  b.getBoardStatus(startingBoard);
+  Tree t;
+
+
+  bool gameOver = false;
+    //main loop
+  while(gameOver != false)
+    {
+      t.createTree(startingBoard);
+    }
     //t.createSubTree(&root);
     
     
