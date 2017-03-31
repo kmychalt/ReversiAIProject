@@ -36,13 +36,14 @@ int main() {
     while (gameOver == false) {
         b.printBoard();
         if (userColor == currentTurn) {
+            validTurn = false;
             while (validTurn == false) {
                 cout << "Select a space to place your piece by using the "
                         "board coordinates separated by a space. " << endl;
                 cin >> coords[0];
                 cin >> coords[1];
                 if (b.checkMove(coords, 2)) {
-		  //b.updateBoardWithMove(coords, 2);
+                    b.updateBoardWithMove(coords, 2);
 		    //gameOver = b.checkGameOver;  UNCOMMENT LATER
 		    validTurn = true;
                 } else
