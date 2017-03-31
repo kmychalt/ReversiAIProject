@@ -12,7 +12,7 @@ int main() {
   int userColor = 0;
   char userChoice = 'a';
   cout << "Welcome to Reversi, I'll be your opponent today." << endl;
-  cout << "Would you like to be black or white? Keep in mind Black always moves first." << endl;
+  cout << "Would you like to be black or white? Keep in mind black always moves first." << endl;
   while(userChoice != 'b' && userChoice != 'B' && userChoice != 'w' && userChoice != 'W')
     {
       cout << "b/w: ";
@@ -32,15 +32,23 @@ int main() {
   Board b;
   b.getBoardStatus(startingBoard);
   Tree t;
+  int coords[2];
 
-
-  bool gameOver = false;
+    bool gameOver = false;
     //main loop
-  while(gameOver != false)
+    while(gameOver == false)
     {
-      t.createTree(startingBoard);
+        t.createTree(startingBoard);
+        b.printBoard();
+        if (userColor == 2) {
+            cout << "Player goes first. Select a space to place your piece by using the "
+                  "board coordinates separated by a space. " << endl;
+            cin >> coords[0];
+            cin >> coords[1];
+            if (b.checkMove(coords[2], 2))
+                b.setNewBoard(startingBoard);
+        }
     }
-    //t.createSubTree(&root);
     
     
     /*int boardBits[BOARD_SIZE][BOARD_SIZE];

@@ -74,8 +74,6 @@ void Board::getBoardStatus(int getBoard[BOARD_SIZE][BOARD_SIZE])
  * PURPOSE: to set the value of the internal array to the value passed in
 
  */
-
-
 void Board::setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE])
 {
   for(int i = 0; i < BOARD_SIZE; i++)
@@ -92,7 +90,6 @@ void Board::setNewBoard(int setBoard[BOARD_SIZE][BOARD_SIZE])
 
 /* PURPOSE: prints the board formated
  */
-
 void Board::printBoard() {
   cout << "  0 1 2 3 4 5 6 7" << endl;
   for(int i = 0; i < BOARD_SIZE; i++)
@@ -592,4 +589,22 @@ bool Board::checkLine(int coords[2], int direction, int colorToFind)
 	}
       return false;
     }
+}
+
+void Board::updateBoardWithMove(int coords[], int color) {
+    int x = coords[0];
+    int y = coords[1];
+    board[coords[0], coords[1]] = color;
+    //check up
+    while (board[coords[0], y] != color && board[coords[0], y] != 0) {
+        y++;
+        if (board[coords[0], y] == color)
+            while (board[coords[0], y] != color) {
+                board[coords[0], y] = color;
+                y--;
+            }
+    }
+        
+    
+    //check down
 }
