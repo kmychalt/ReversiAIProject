@@ -9,6 +9,7 @@ struct Node {
         int fitWhite;
         int fitBlack;
         Node *pointToNext[MAX_POSS_MOVES];
+        bool end;
 };
 
 class Tree {
@@ -21,7 +22,6 @@ public:
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);
     void destroyTree(Node *leaf);
-    Board createMove(Board board, int currentColor);
     void alphaBeta();
 private:
     Node *root;

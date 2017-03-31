@@ -1,0 +1,7 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=005EC033
+eax=00000000 ebx=8049CD38 ecx=00000000 edx=00000000 esi=8049CD38 edi=802E9290
+ebp=FFFFFFFF esp=014FC5C0 program=C:\cygwin\bin\gdb.exe, pid 6836, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+End of stack trace
