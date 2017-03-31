@@ -6,11 +6,16 @@
 
 using namespace std;
 
-int main(int argc, char** argv) {
+int main() {
     Tree t;
     Board b;
-    Node n;
-    int boardBits[BOARD_SIZE][BOARD_SIZE];
+    Node root;
+    
+    t.createTree(&root);
+    //t.createSubTree(&root);
+    
+    
+    /*int boardBits[BOARD_SIZE][BOARD_SIZE];
     b.getBoardStatus(boardBits);
     int move[2];
     move[0] = 0;
@@ -61,7 +66,7 @@ int main(int argc, char** argv) {
     else
       cout << "invalid Move" << endl;
     b.setNewBoard(boardBits);
-    b.printBoard();
+    b.printBoard();*/
     return 0;
 }
 

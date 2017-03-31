@@ -16,8 +16,8 @@ public:
     Tree();
     ~Tree();
     
-    void createTree();
-    void createSubTree(Node *start);
+    void createTree(Node *root);
+    void createLeaves(Node *leaf, int turn, int plyNum);
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);
     void destroyTree(Node *leaf);

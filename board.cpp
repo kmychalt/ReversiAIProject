@@ -128,7 +128,6 @@ bool Board::checkMove(int coords[2],int color)
     checkColor = 2;
   else
     checkColor = 1;
-
   if(coords[0] >= BOARD_SIZE || coords[1] >= BOARD_SIZE || coords[0] < 0 || coords[1] < 0)
     return false;
   if(board[coords[0]][coords[1]] != 0)
