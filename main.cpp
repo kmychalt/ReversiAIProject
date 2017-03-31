@@ -36,13 +36,14 @@ int main() {
     while (gameOver == false) {
         b.printBoard();
         if (userColor == currentTurn) {
+            validTurn = false;
             while (validTurn == false) {
                 cout << "Select a space to place your piece by using the "
                         "board coordinates separated by a space. " << endl;
                 cin >> coords[0];
                 cin >> coords[1];
-                if (b.checkMove(coords, 2)) {
-		  //b.updateBoardWithMove(coords, 2);
+                if (b.checkMove(coords, userColor)) {
+                    b.updateBoardWithMove(coords, userColor);
 		    //gameOver = b.checkGameOver;  UNCOMMENT LATER
 		    validTurn = true;
                 } else
@@ -64,7 +65,7 @@ int main() {
 	    int OptimalBoard[BOARD_SIZE][BOARD_SIZE];
 	    int currentBoard[BOARD_SIZE][BOARD_SIZE];
 	    int optimalMove[2];
-	    //t.AlphaBeta(OptimalBoard,compColor);
+	    t.AlphaBeta(OptimalBoard,compColor);
 	    b.getBoardStatus(currentBoard);
 	    for(int i = 0;i < BOARD_SIZE; i++)
 	      {
@@ -79,7 +80,7 @@ int main() {
 		      }
 		  }
 	      }
-	    //b.updateBoardWithMove(optimalMove, compColor);
+	    b.updateBoardWithMove(optimalMove, compColor);
 	    //gameOver = b.gameOver; UNCOMMENT LATER
 	    if(currentTurn == 1)
 	      currentTurn = 2;
