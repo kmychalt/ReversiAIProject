@@ -42,8 +42,8 @@ int main() {
                         "board coordinates separated by a space. " << endl;
                 cin >> coords[0];
                 cin >> coords[1];
-                if (b.checkMove(coords, 2)) {
-                    b.updateBoardWithMove(coords, 2);
+                if (b.checkMove(coords, userColor)) {
+                    b.updateBoardWithMove(coords, userColor);
 		    //gameOver = b.checkGameOver;  UNCOMMENT LATER
 		    validTurn = true;
                 } else
