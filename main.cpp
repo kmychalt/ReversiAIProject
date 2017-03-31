@@ -25,52 +25,70 @@ int main() {
         userColor = 1;
         cout << "Computer goes first. " << endl;
     }
-    
-    Tree t;
     Board b;
     int startingBoard[BOARD_SIZE][BOARD_SIZE];
     b.getBoardStatus(startingBoard);
     int coords[2];
     bool validTurn = false;
-    t.createTree(startingBoard);
-    
-
+    int currentTurn = 2;
     bool gameOver = false;
     //main loop
     while (gameOver == false) {
         b.printBoard();
-        if (userColor == 2) {
+        if (userColor == currentTurn) {
             while (validTurn == false) {
                 cout << "Select a space to place your piece by using the "
                         "board coordinates separated by a space. " << endl;
                 cin >> coords[0];
                 cin >> coords[1];
                 if (b.checkMove(coords, 2)) {
-                    b.updateBoardWithMove(coords, 2);
-                    validTurn = true;
+		  //b.updateBoardWithMove(coords, 2);
+		    //gameOver = b.checkGameOver;  UNCOMMENT LATER
+		    validTurn = true;
                 } else
                     cout << "That was an invalid move. Try again. " << endl;
+		if(currentTurn == 1)
+		  currentTurn = 2;
+		else 
+		  currentTurn = 1;
             }
 
             //computers turn
         } else {
             //computers turn
             cout << "Now it's my turn. " << endl;
+	    b.getBoardStatus(startingBoard);
+	    Tree t;
+	    t.createTree(startingBoard);
+	    cout << "after createTree" << endl; //TEMPORARY REMOVE
+	    int OptimalBoard[BOARD_SIZE][BOARD_SIZE];
+	    int currentBoard[BOARD_SIZE][BOARD_SIZE];
+	    int optimalMove[2];
+	    t.AlphaBeta(OptimalBoard,compColor);
+	    b.getBoardStatus(currentBoard);
+	    for(int i = 0;i < BOARD_SIZE; i++)
+	      {
+		for(int j = 0; j < BOARD_SIZE; j++)
+		  {
+		    if (OptimalBoard[j][i] != currentBoard[j][i])
+		      {
+			optimalMove[0] = j;
+			optimalMove[1] = i;
+			cout << "optimalMove" << optimalMove[0] << "," << optimalMove[1] << endl;
+			break; 
+		      }
+		  }
+	      }
+	    //b.updateBoardWithMove(optimalMove, compColor);
+	    //gameOver = b.gameOver; UNCOMMENT LATER
+	    if(currentTurn == 1)
+	      currentTurn = 2;
+	    else
+	      currentTurn = 1;
+	}
 
-            while (validTurn == false) {
-                cout << "Select a space to place your piece by using the "
-                        "board coordinates separated by a space. " << endl;
-                cin >> coords[0];
-                cin >> coords[1];
-                if (b.checkMove(coords, 2)) {
-                    b.updateBoardWithMove(coords, 2);
-                    validTurn = true;
-                } else
-                    cout << "That was an invalid move. Try again. " << endl;
-            }
-        }
+         
     }
-   
     return 0;
 }
 
