@@ -33,8 +33,8 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
   int arr[BOARD_SIZE][BOARD_SIZE];
   
   cout << endl;
-  cout << "Leaf board" << endl;
-  leaf->board.printBoard();
+  cout << "creating Leaf board" << endl;
+  //leaf->board.printBoard();
   
   if(leaf->isLeaf != true && plyNum != 0) 
     {
@@ -53,13 +53,18 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 		  //NEED TO HAVE LINE CHANGE
 		  
 		  n->board.setNewBoard(arr);
-		  n->board.printBoard(); //print for debugging
+		  //n->board.printBoard(); //print for debugging 
+		  cout << "current count" << count << endl;
 		  n->isLeaf = false;
+		  n->nullTerminal = false;
 		  
 		  count++;
 		}
 	    }
 	}
+      Node *m = new Node;
+      m -> nullTerminal = true;
+      leaf->pointToNext[count+1] = m;
       if (count != 0 || plyNum > 0)
 	{
 	  plyNum--;
@@ -67,6 +72,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
       if(count == 0 || plyNum == 0)
 	{
 	  leaf ->isLeaf = true;
+	  cout << "leaf is leaf" << endl; //TEMPORARY REMOVE
 	  if (leaf == root)
 	    {
 	      noMoves = true;
@@ -81,7 +87,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 	    turn = 2;
 	  for (int k = 0; k < count; k++)
 	    {
-	      createLeaves(leaf->pointToNext[k], 1, plyNum);
+	      createLeaves(leaf->pointToNext[k], turn, plyNum);
 	    }
 	}
     }  
@@ -101,16 +107,29 @@ void Tree::insert(Node *leaf, int childNum) {
 void Tree::destroyTree(Node* leaf) {
     if (leaf->pointToNext[0] != NULL) {
         for (int i = 0; i < MAX_POSS_MOVES; i++) {
-            destroyTree(leaf->pointToNext[i]);
+          if(leaf->pointToNext[i] == NULL)
+	    break;
+	  else  
+	    destroyTree(leaf->pointToNext[i]);
         }
     }
     delete leaf; //delete calls de-constructor and deallocates memory
 }
 
-void Tree::AlphaBeta(int suggestedMove[2], int turn) {
+void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
     //traverse tree, looking for alpha-beta values
   int traverseNum = 0;
   traverseNum = traverseAlphaBeta(root, NUM_PLY, -1, BOARD_SIZE * BOARD_SIZE + 1, true, turn);
+  int i = 0;
+  while(root->pointToNext[i]->nullTerminal != false)
+    {
+      if(root->pointToNext[i]->ABvalue == traverseNum)
+	{
+	  root->pointToNext[i]->board.getBoardStatus(suggestedBoard);
+	  break;
+	}
+      i++;
+    }
 }
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {
@@ -127,8 +146,56 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
 	}
     }
   if(max)
+<<<<<<< HEAD
     leaf->ABvalue = -1;
 
 
 
 }
+=======
+    {
+      leaf->ABvalue = -1;
+      int i = 0;
+      while(leaf->pointToNext[i]->nullTerminal != true)
+	{
+	  int temp = 0;
+	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,false, color);
+	  if(leaf->ABvalue < temp)
+	    {
+	      leaf->ABvalue = temp;
+	    }
+	  if(leaf->ABvalue > localAlpha)
+	    {
+	      localAlpha = leaf->ABvalue;
+	    }
+	  if(localBeta <= leaf->ABvalue)
+	    break;
+	  i++;
+	}
+      return leaf->ABvalue;
+    }
+  else
+    {
+      leaf->ABvalue = BOARD_SIZE * BOARD_SIZE + 1;
+      int i = 0;
+      while(leaf -> pointToNext[i]->nullTerminal != true)
+	{
+	  int temp = 0;
+	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,true, color);
+	  if(leaf->ABvalue > temp)
+	    {
+	      leaf->ABvalue = temp;
+	    }
+	  if(leaf->ABvalue < localBeta)
+	    {
+	      localBeta = leaf->ABvalue;
+	    }
+	  if(localBeta <= leaf-> ABvalue)
+	    break;
+	  i++;
+	}
+      return leaf->ABvalue;
+    }
+}
+
+>>>>>>> origin/master

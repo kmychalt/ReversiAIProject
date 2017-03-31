@@ -14,6 +14,7 @@ struct Node {
         int ABvalue;
         bool isLeaf;
         bool isRoot;
+        bool nullTerminal;
 };
 
 class Tree {
@@ -25,7 +26,7 @@ public:
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);
     void destroyTree(Node *leaf);
-    void AlphaBeta(int suggestedMove[2], int turn);
+    void AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn);
     int traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color);
 private:
     Node *root;
