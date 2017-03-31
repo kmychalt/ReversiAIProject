@@ -24,7 +24,7 @@ void Tree::createTree(int initalBoard[BOARD_SIZE][BOARD_SIZE]) {
     root->board.setNewBoard(initalBoard);
     root->isRoot = true;
     root->isLeaf = false;
-    createLeaves(root, 2, 2);
+    createLeaves(root, 2, NUM_PLY);
 }
 
 void Tree::createLeaves(Node *leaf, int turn, int plyNum) 
@@ -62,9 +62,16 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 		}
 	    }
 	}
+      //cout << "is the node being added correctly" << endl; //TEMPORARY REMOVE
       Node *m = new Node;
       m -> nullTerminal = true;
-      leaf->pointToNext[count+1] = m;
+      leaf->pointToNext[count] = m;
+      //cout << "count" << count << endl; //TEMPORARY REMOVE
+      /* for(int i = 0; i < count+1; i++)
+	{
+	  cout <<"leaf->pointToNext[count+1]->nullTerminal" << leaf->pointToNext[i]->nullTerminal << endl;//TEMPORARY REMOVE
+	}
+      */
       if (count != 0 || plyNum > 0)
 	{
 	  plyNum--;
@@ -72,7 +79,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
       if(count == 0 || plyNum == 0)
 	{
 	  leaf ->isLeaf = true;
-	  cout << "leaf is leaf" << endl; //TEMPORARY REMOVE
+	  //cout << "leaf is leaf" << endl; //TEMPORARY REMOVE
 	  if (leaf == root)
 	    {
 	      noMoves = true;
@@ -90,7 +97,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 	      createLeaves(leaf->pointToNext[k], turn, plyNum);
 	    }
 	}
-    }  
+    }
 }
 //incomplete function, need some key value for identification
 void Tree::insert(Node *leaf, int childNum) {
@@ -119,10 +126,17 @@ void Tree::destroyTree(Node* leaf) {
 void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
     //traverse tree, looking for alpha-beta values
   int traverseNum = 0;
+  Board b;
+  b.getBoardStatus(suggestedBoard);
+  //  cout << "is it here" << endl; //TEMPORARY REMOVE
   traverseNum = traverseAlphaBeta(root, NUM_PLY, -1, BOARD_SIZE * BOARD_SIZE + 1, true, turn);
+  cout << "starting Checking" << endl; //TEMPORARY REMOVE
+  cout << traverseNum << " Traverse Num" << endl; //TEMPORARY REMOVE
   int i = 0;
-  while(root->pointToNext[i]->nullTerminal != false)
+  cout << "root->pointToNext[i]->nullTerminal " << root->pointToNext[i]->nullTerminal <<endl;
+  while(root->pointToNext[i]->nullTerminal == false)
     {
+      cout << "in while" << root->pointToNext[i]->ABvalue << endl;
       if(root->pointToNext[i]->ABvalue == traverseNum)
 	{
 	  root->pointToNext[i]->board.getBoardStatus(suggestedBoard);
@@ -130,32 +144,59 @@ void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
 	}
       i++;
     }
+  cout << "after While " << endl;
+  
 }
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {
   //if at a leaf of the tree return fitness 
+  //  cout << "depth: " << depth << endl; //TEMPORARY REMOVE
+  int i = 0;
+  /*while(true) //TEMPORARY REMOVE
+    {
+      if(leaf->pointToNext[i]->nullTerminal != true)
+	{
+	  cout << "leaf children" << endl;
+	  cout << "i" << i  << endl;
+	  i++;
+	}
+      else
+	break; 
+	}*/
   if(leaf->isLeaf == true || depth == 0)
     {
+      //      cout << "does it get to the leaves depth:" << depth << endl; //TEMPORARY REMOVE
       if(color == 2)
 	{
+	  cout << "in leaf returning leaf->board.getFitness(2)" << leaf->board.getFitness(2) << endl; //TEMPORARY REMOVE ACTIVE
+	  //	  cout << "color 2 in leaf" << endl; //TEMPORARY REMOVE
 	  return leaf->board.getFitness(2);
 	}
       else
 	{
+	  cout << "in leaf returning leaf->board.getFitness(1)" << leaf->board.getFitness(1) << endl; //TEMPORARY REMOVE ACTIVE
+	  //	  cout << "color 1 in leaf" << endl; //TEMPORARY REMOVE
 	  return leaf->board.getFitness(1);
 	}
     }
   if(max)
     {
+      //      cout << "is in max" << endl; //TEMPORARY REMOVE
       leaf->ABvalue = -1;
       int i = 0;
       while(leaf->pointToNext[i]->nullTerminal != true)
 	{
+	  //	  cout << "i in max while: " << i << endl; //TEMPORARY REMOVE
 	  int temp = 0;
+	  cout << "function call in max" << endl; //TEMPORARY REMOVE ACTIVE
 	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,false, color);
+	  //	  cout << "i and temp:" << i << " " << temp << endl; //TEMPORARY REMOVE
 	  if(leaf->ABvalue < temp)
 	    {
+	      cout << "goings on" << endl; //TEMPORARY REMOVE
+	      cout << leaf->ABvalue << endl;
 	      leaf->ABvalue = temp;
+	      cout << leaf->ABvalue << "depth: " << depth<< endl;
 	    }
 	  if(leaf->ABvalue > localAlpha)
 	    {
@@ -167,13 +208,15 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
 	}
       return leaf->ABvalue;
     }
-  else
+  else if(!max)
     {
+      cout << "is in min" << endl; //TEMPORARY REMOVE
       leaf->ABvalue = BOARD_SIZE * BOARD_SIZE + 1;
       int i = 0;
       while(leaf -> pointToNext[i]->nullTerminal != true)
 	{
 	  int temp = 0;
+	  cout << "function Call in Min" << endl;//TEMPORARY REMOVE 
 	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,true, color);
 	  if(leaf->ABvalue > temp)
 	    {
