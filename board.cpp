@@ -594,17 +594,37 @@ bool Board::checkLine(int coords[2], int direction, int colorToFind)
 void Board::updateBoardWithMove(int coords[], int color) {
     int x = coords[0];
     int y = coords[1];
-    board[coords[0], coords[1]] = color;
+    board[coords[0]][coords[1]] = color;
     //check up
-    while (board[coords[0], y] != color && board[coords[0], y] != 0) {
-        y++;
-        if (board[coords[0], y] == color)
-            while (board[coords[0], y] != color) {
-                board[coords[0], y] = color;
-                y--;
-            }
+    y--;
+    while (board[coords[0]][y] != color && y != BOARD_SIZE) {
+        y--;
+        if (board[coords[0]][y] == color)
+            do  {
+                y++;
+                board[coords[0]][y] = color;
+            } while (board[coords[0]][y] != color);
     }
-        
-    
     //check down
+    y = coords[1];
+    y++;
+    while (board[coords[0]][y] != color && y != BOARD_SIZE) {
+        y++;
+        if (board[coords[0]][y] == color)
+            do  {
+                y--;
+                board[coords[0]][y] = color;
+            } while (board[coords[0]][y] != color);
+    }
+    //check right
+    
+    //check left
+    
+    //check diagonally up-right
+    
+    //check diagonally up-left
+    
+    //check diagonally down-right
+    
+    //check diagonally down-left
 }

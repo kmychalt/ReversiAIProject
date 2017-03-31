@@ -7,51 +7,74 @@
 using namespace std;
 
 int main() {
-
-  int compColor = 0;
-  int userColor = 0;
-  char userChoice = 'a';
-  cout << "Welcome to Reversi, I'll be your opponent today." << endl;
-  cout << "Would you like to be black or white? Keep in mind black always moves first." << endl;
-  while(userChoice != 'b' && userChoice != 'B' && userChoice != 'w' && userChoice != 'W')
-    {
-      cout << "b/w: ";
-      cin.get(userChoice);
+    int compColor = 0;
+    int userColor = 0;
+    char userChoice = 'a';
+    cout << "Welcome to Reversi, I'll be your opponent today." << endl;
+    cout << "Would you like to be black or white? Keep in mind black always moves first." << endl;
+    while (userChoice != 'b' && userChoice != 'B' && userChoice != 'w' && userChoice != 'W') {
+        cout << "b/w: ";
+        cin.get(userChoice);
     }
-  if(userChoice == 'b' || userChoice == 'B')
-    {
-      userColor = 2; 
-      compColor = 1;
+    if (userChoice == 'b' || userChoice == 'B') {
+        userColor = 2;
+        compColor = 1;
+        cout << "Player goes first. " << endl;
+    } else {
+        compColor = 2;
+        userColor = 1;
+        cout << "Computer goes first. " << endl;
     }
-  else
-    {
-      compColor = 2;
-      userColor = 1;
-    }
-  int startingBoard[BOARD_SIZE][BOARD_SIZE];
-  Board b;
-  b.getBoardStatus(startingBoard);
-  Tree t;
-  int coords[2];
+    
+    Tree t;
+    Board b;
+    int startingBoard[BOARD_SIZE][BOARD_SIZE];
+    b.getBoardStatus(startingBoard);
+    int coords[2];
+    bool validTurn = false;
+    t.createTree(startingBoard);
+    
 
     bool gameOver = false;
     //main loop
-    while(gameOver == false)
-    {
-        t.createTree(startingBoard);
+    while (gameOver == false) {
         b.printBoard();
         if (userColor == 2) {
-            cout << "Player goes first. Select a space to place your piece by using the "
-                  "board coordinates separated by a space. " << endl;
-            cin >> coords[0];
-            cin >> coords[1];
-            if (b.checkMove(coords[2], 2))
-                b.setNewBoard(startingBoard);
+            while (validTurn == false) {
+                cout << "Select a space to place your piece by using the "
+                        "board coordinates separated by a space. " << endl;
+                cin >> coords[0];
+                cin >> coords[1];
+                if (b.checkMove(coords, 2)) {
+                    b.updateBoardWithMove(coords, 2);
+                    validTurn = true;
+                } else
+                    cout << "That was an invalid move. Try again. " << endl;
+            }
+
+            //computers turn
+        } else {
+            //computers turn
+            cout << "Now it's my turn. " << endl;
+
+            while (validTurn == false) {
+                cout << "Select a space to place your piece by using the "
+                        "board coordinates separated by a space. " << endl;
+                cin >> coords[0];
+                cin >> coords[1];
+                if (b.checkMove(coords, 2)) {
+                    b.updateBoardWithMove(coords, 2);
+                    validTurn = true;
+                } else
+                    cout << "That was an invalid move. Try again. " << endl;
+            }
         }
     }
-    
-    
-    /*int boardBits[BOARD_SIZE][BOARD_SIZE];
+   
+    return 0;
+}
+
+ /*int boardBits[BOARD_SIZE][BOARD_SIZE];
     b.getBoardStatus(boardBits);
     int move[2];
     move[0] = 0;
@@ -59,17 +82,17 @@ int main() {
     int sumMoves = 0;
     for(int i = 0; i < 7; i++)
       {
-	move[0] = i;
-	for(int j = 0; j < 7; j++)
-	  {
-	    move[1] = j;
-	    if(b.checkMove(move, 1))
-	      {
-		sumMoves++;
-		boardBits[move[0]][move[1]] = 1;
-	      }
-	  }
-	    cout << "sumMoves: " << sumMoves << endl;
+        move[0] = i;
+        for(int j = 0; j < 7; j++)
+          {
+            move[1] = j;
+            if(b.checkMove(move, 1))
+              {
+                sumMoves++;
+                boardBits[move[0]][move[1]] = 1;
+              }
+          }
+            cout << "sumMoves: " << sumMoves << endl;
       }
 
     b.setNewBoard(boardBits);
@@ -79,10 +102,10 @@ int main() {
     b.getBoardStatus(boardBits);
     for(int i = 0; i < 8; i++)
       {
-	for(int j = 0; j < 8; j++)
-	  {
-	    boardBits[j][i] = 2;
-	  }
+        for(int j = 0; j < 8; j++)
+          {
+            boardBits[j][i] = 2;
+          }
       }
 
     boardBits[3][0] = 0;//start
@@ -103,6 +126,4 @@ int main() {
       cout << "invalid Move" << endl;
     b.setNewBoard(boardBits);
     b.printBoard();*/
-    return 0;
-}
 
