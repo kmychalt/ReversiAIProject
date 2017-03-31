@@ -1,4 +1,4 @@
-#define NUM_PLY 3 //this will change later
+#define NUM_PLY 2 //this will change later
 #define MAX_POSS_MOVES BOARD_SIZE*BOARD_SIZE //this will change later
 
 #ifndef NEXTMOVE_H

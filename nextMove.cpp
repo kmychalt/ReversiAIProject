@@ -130,13 +130,13 @@ void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
   b.getBoardStatus(suggestedBoard);
   //  cout << "is it here" << endl; //TEMPORARY REMOVE
   traverseNum = traverseAlphaBeta(root, NUM_PLY, -1, BOARD_SIZE * BOARD_SIZE + 1, true, turn);
-  cout << "starting Checking" << endl; //TEMPORARY REMOVE
-  cout << traverseNum << " Traverse Num" << endl; //TEMPORARY REMOVE
+  //cout << "starting Checking" << endl; //TEMPORARY REMOVE
+  //cout << traverseNum << " Traverse Num" << endl; //TEMPORARY REMOVE
   int i = 0;
-  cout << "root->pointToNext[i]->nullTerminal " << root->pointToNext[i]->nullTerminal <<endl;
+  //cout << "root->pointToNext[i]->nullTerminal " << root->pointToNext[i]->nullTerminal <<endl; //TEMPORARY REMOVE
   while(root->pointToNext[i]->nullTerminal == false)
     {
-      cout << "in while" << root->pointToNext[i]->ABvalue << endl;
+      //cout << "in while" << root->pointToNext[i]->ABvalue << endl; //TEMPORARY REMOVE
       if(root->pointToNext[i]->ABvalue == traverseNum)
 	{
 	  root->pointToNext[i]->board.getBoardStatus(suggestedBoard);
@@ -150,7 +150,7 @@ void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {
   //if at a leaf of the tree return fitness 
-  //  cout << "depth: " << depth << endl; //TEMPORARY REMOVE
+  cout << leaf->ABvalue << "     LEAF ABvalue" << endl; 
   int i = 0;
   /*while(true) //TEMPORARY REMOVE
     {
@@ -168,15 +168,17 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
       //      cout << "does it get to the leaves depth:" << depth << endl; //TEMPORARY REMOVE
       if(color == 2)
 	{
-	  cout << "in leaf returning leaf->board.getFitness(2)" << leaf->board.getFitness(2) << endl; //TEMPORARY REMOVE ACTIVE
+	  //cout << "in leaf returning leaf->board.getFitness(2)" << leaf->board.getFitness(2) << endl; //TEMPORARY REMOVE 
 	  //	  cout << "color 2 in leaf" << endl; //TEMPORARY REMOVE
-	  return leaf->board.getFitness(2);
+	  leaf->ABvalue = leaf->board.getFitness(2);
+	  return leaf->ABvalue;
 	}
       else
 	{
-	  cout << "in leaf returning leaf->board.getFitness(1)" << leaf->board.getFitness(1) << endl; //TEMPORARY REMOVE ACTIVE
+	  //cout << "in leaf returning leaf->board.getFitness(1)" << leaf->board.getFitness(1) << endl; //TEMPORARY REMOVE
 	  //	  cout << "color 1 in leaf" << endl; //TEMPORARY REMOVE
-	  return leaf->board.getFitness(1);
+	  leaf->ABvalue = leaf->board.getFitness(1);
+	  return leaf->ABvalue;
 	}
     }
   if(max)
@@ -188,15 +190,15 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
 	{
 	  //	  cout << "i in max while: " << i << endl; //TEMPORARY REMOVE
 	  int temp = 0;
-	  cout << "function call in max" << endl; //TEMPORARY REMOVE ACTIVE
+	  //cout << "function call in max" << endl; //TEMPORARY REMOVE
 	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,false, color);
 	  //	  cout << "i and temp:" << i << " " << temp << endl; //TEMPORARY REMOVE
 	  if(leaf->ABvalue < temp)
 	    {
-	      cout << "goings on" << endl; //TEMPORARY REMOVE
-	      cout << leaf->ABvalue << endl;
+	      //cout << "goings on" << endl; //TEMPORARY REMOVE
+	      //cout << leaf->ABvalue << endl;
 	      leaf->ABvalue = temp;
-	      cout << leaf->ABvalue << "depth: " << depth<< endl;
+	      //cout << leaf->ABvalue << "depth: " << depth<< endl;
 	    }
 	  if(leaf->ABvalue > localAlpha)
 	    {
@@ -210,13 +212,13 @@ int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta
     }
   else if(!max)
     {
-      cout << "is in min" << endl; //TEMPORARY REMOVE
+      //cout << "is in min" << endl; //TEMPORARY REMOVE
       leaf->ABvalue = BOARD_SIZE * BOARD_SIZE + 1;
       int i = 0;
       while(leaf -> pointToNext[i]->nullTerminal != true)
 	{
 	  int temp = 0;
-	  cout << "function Call in Min" << endl;//TEMPORARY REMOVE 
+	  //cout << "function Call in Min" << endl;//TEMPORARY REMOVE 
 	  temp = traverseAlphaBeta(leaf->pointToNext[i], depth - 1, localAlpha, localBeta,true, color);
 	  if(leaf->ABvalue > temp)
 	    {
