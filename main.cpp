@@ -65,7 +65,7 @@ int main() {
 	    int OptimalBoard[BOARD_SIZE][BOARD_SIZE];
 	    int currentBoard[BOARD_SIZE][BOARD_SIZE];
 	    int optimalMove[2];
-	    //t.AlphaBeta(OptimalBoard,compColor);
+	    t.AlphaBeta(OptimalBoard,compColor);
 	    b.getBoardStatus(currentBoard);
 	    for(int i = 0;i < BOARD_SIZE; i++)
 	      {
@@ -80,7 +80,7 @@ int main() {
 		      }
 		  }
 	      }
-	    //b.updateBoardWithMove(optimalMove, compColor);
+	    b.updateBoardWithMove(optimalMove, compColor);
 	    //gameOver = b.gameOver; UNCOMMENT LATER
 	    if(currentTurn == 1)
 	      currentTurn = 2;
