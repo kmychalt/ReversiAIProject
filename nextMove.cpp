@@ -108,7 +108,7 @@ void Tree::insert(Node *leaf, int childNum) {
 void Tree::destroyTree(Node* leaf) {
     if (!leaf->isLeaf) {
         for (int i = 0; i < MAX_POSS_MOVES; i++) {
-            if (leaf->pointToNext[i] == NULL)
+            if (leaf->pointToNext[i]->nullTerminal)
                 break;
             else
                 destroyTree(leaf->pointToNext[i]);
