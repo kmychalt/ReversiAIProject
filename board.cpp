@@ -603,7 +603,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
             do  {
                 y++;
                 board[coords[0]][y] = color;
-            } while (board[coords[0]][y] != color);
+            } while (board[coords[0]][y + 1] != color);
     }
     //check down
     y = coords[1] + 1;
@@ -613,7 +613,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
             do  {
                 y--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x][y - 1] != color);
     }
     //check right
     x = coords[0] + 1;
@@ -624,7 +624,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
             do {
                 x--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x - 1][y] != color);
     }
     //check left
     x = coords[0] - 1;
@@ -634,7 +634,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
             do {
                 x++;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x + 1][y] != color);
     }
     //check diagonally up-right
     x = coords[0] - 1;
@@ -647,7 +647,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
                 x++;
                 y--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x + 1][y - 1] != color);
         }
     }
     //check diagonally up-left
@@ -661,7 +661,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
                 x++;
                 y--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x + 1][y - 1] != color);
         }
     }
     //check diagonally down-right
@@ -675,7 +675,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
                 x--;
                 y--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x - 1][y - 1] != color);
         }
     }
     //check diagonally down-left
@@ -689,7 +689,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
                 x++;
                 y--;
                 board[x][y] = color;
-            } while (board[x][y] != color);
+            } while (board[x + 1][y - 1] != color);
         }
     }
 }
