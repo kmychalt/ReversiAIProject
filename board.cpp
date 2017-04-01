@@ -655,13 +655,13 @@ void Board::updateBoardWithMove(int coords[], int color) {
     y = coords[1] - 1;
     while(board[x][y] != color && board[x][y] != 0 && x >= 0 && y >= 0) {
         x--;
-        y++;
+        y--;
         if (board[x][y] == color) {
             do {
                 x++;
-                y--;
+                y++;
                 board[x][y] = color;
-            } while (board[x + 1][y - 1] != color);
+            } while (board[x + 1][y + 1] != color);
         }
     }
     //check diagonally down-right
