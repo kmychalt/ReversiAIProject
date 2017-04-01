@@ -33,7 +33,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
   int arr[BOARD_SIZE][BOARD_SIZE];
   
   cout << endl;
-  cout << "creating Leaf board" << endl;
+  cout << "creating Leaf board" << endl;//TEMPORARY REMOVE
   //leaf->board.printBoard();
   
   if(leaf->isLeaf != true && plyNum != 0) 
@@ -47,14 +47,10 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 		{ //if they are a legal move
 		  Node *n = new Node;
 		  leaf->pointToNext[count] = n; //give node we are looking at a new child
-		  leaf->board.getBoardStatus(arr); //get board arr from root
-		  arr[i][j] = turn; //set the piece on the board
-		  
+		  n->board.updateBoardWithMove(coords, turn);
 		  //NEED TO HAVE LINE CHANGE
-		  
-		  n->board.setNewBoard(arr);
 		  //n->board.printBoard(); //print for debugging 
-		  cout << "current count" << count << endl;
+		  //cout << "current count" << count << endl; //TEMPORARY REMOVE
 		  n->isLeaf = false;
 		  n->nullTerminal = false;
 		  
@@ -150,7 +146,7 @@ void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {
   //if at a leaf of the tree return fitness 
-  cout << leaf->ABvalue << "     LEAF ABvalue" << endl; 
+  cout << leaf->ABvalue << "     LEAF ABvalue" << endl; //TEMPORARY REMOVE
   int i = 0;
   /*while(true) //TEMPORARY REMOVE
     {
