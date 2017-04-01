@@ -637,17 +637,17 @@ void Board::updateBoardWithMove(int coords[], int color) {
             } while (board[x + 1][y] != color);
     }
     //check diagonally up-right
-    x = coords[0] - 1;
-    y = coords[1] + 1;
-    while(board[x][y] != color && board[x][y] != 0 && x >= 0 && y != BOARD_SIZE) {
-        x--;
-        y++;
+    x = coords[0] + 1;
+    y = coords[1] - 1;
+    while(board[x][y] != color && board[x][y] != 0 && x > BOARD_SIZE && y >= 0) {
+        x++;
+        y--;
         if (board[x][y] == color) {
             do {
-                x++;
-                y--;
+                x--;
+                y++;
                 board[x][y] = color;
-            } while (board[x + 1][y - 1] != color);
+            } while (board[x - 1][y + 1] != color);
         }
     }
     //check diagonally up-left

@@ -46,7 +46,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum) {
                     Node *n = new Node;
                     leaf->pointToNext[count] = n; //give node we are looking at a new child
                     n->board.updateBoardWithMove(coords, turn);
-                    n->board.printBoard();
+                    //n->board.printBoard();
                     n->move[0] = i;
                     n->move[1] = j;
                     //NEED TO HAVE LINE CHANGE
