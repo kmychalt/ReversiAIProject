@@ -639,7 +639,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
     //check diagonally up-right
     x = coords[0] + 1;
     y = coords[1] - 1;
-    while(board[x][y] != color && board[x][y] != 0 && x > BOARD_SIZE && y >= 0) {
+    while(board[x][y] != color && board[x][y] != 0 && x < BOARD_SIZE && y >= 0) {
         x++;
         y--;
         if (board[x][y] == color) {
