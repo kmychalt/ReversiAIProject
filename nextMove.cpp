@@ -19,12 +19,12 @@ Tree::~Tree() {
 }
 
 //PURPOSE: Create the tree for the AI, to be used for alpha-beta pruning
-void Tree::createTree(int initalBoard[BOARD_SIZE][BOARD_SIZE]) {
+void Tree::createTree(int initalBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
   //insert(root, 0);
     root->board.setNewBoard(initalBoard);
     root->isRoot = true;
     root->isLeaf = false;
-    createLeaves(root, 2, NUM_PLY);
+    createLeaves(root, turn, NUM_PLY);
 }
 
 void Tree::createLeaves(Node *leaf, int turn, int plyNum) 
@@ -112,7 +112,7 @@ void Tree::insert(Node *leaf, int childNum) {
 }*/
 
 void Tree::destroyTree(Node* leaf) {
-    if (leaf->pointToNext[0] != NULL) {
+    if (!leaf->isLeaf) {
         for (int i = 0; i < MAX_POSS_MOVES; i++) {
           if(leaf->pointToNext[i] == NULL)
 	    break;

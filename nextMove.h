@@ -21,7 +21,7 @@ class Tree {
 public:
     Tree();
     ~Tree();
-    void createTree(int initalBoard[BOARD_SIZE][BOARD_SIZE]);
+    void createTree(int initalBoard[BOARD_SIZE][BOARD_SIZE], int turn);
     void createLeaves(Node *leaf, int turn, int plyNum);
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);

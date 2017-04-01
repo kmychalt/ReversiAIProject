@@ -48,19 +48,16 @@ int main() {
 		    validTurn = true;
                 } else
                     cout << "That was an invalid move. Try again. " << endl;
-		if(currentTurn == 1)
+            }
+            if(currentTurn == 1)
 		  currentTurn = 2;
 		else 
 		  currentTurn = 1;
-            }
-
-            //computers turn
         } else {
-            //computers turn
             cout << "Now it's my turn. " << endl;
 	    b.getBoardStatus(startingBoard);
 	    Tree t;
-	    t.createTree(startingBoard);
+	    t.createTree(startingBoard, currentTurn);
 	    cout << "after createTree" << endl; //TEMPORARY REMOVE
 	    int OptimalBoard[BOARD_SIZE][BOARD_SIZE];
 	    int currentBoard[BOARD_SIZE][BOARD_SIZE];

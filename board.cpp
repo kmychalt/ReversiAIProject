@@ -618,7 +618,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
     //check right
     x = coords[0] + 1;
     y = coords[1];
-    while (board[x][y] != color && board[x][y] != 0 && y != BOARD_SIZE) {
+    while (board[x][y] != color && board[x][y] != 0 && x != BOARD_SIZE) {
         x++;
         if (board[x][y] == color)
             do {
@@ -628,7 +628,7 @@ void Board::updateBoardWithMove(int coords[], int color) {
     }
     //check left
     x = coords[0] - 1;
-    while (board[x][y] != color && board[x][y] != 0 && y >= 0) {
+    while (board[x][y] != color && board[x][y] != 0 && x >= 0) {
         x--;
         if (board[x][y] == color)
             do {
