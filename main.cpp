@@ -89,5 +89,22 @@ int main() {
                 currentTurn = 1;
         }
     }
+
+    if(gameOver)
+      {
+	cout << "Thats the game!" << endl;
+	cout << "Final Board:" << endl; 
+	b.printBoard();
+	cout << "White had " << b.getFitness(1) << " Pieces." << endl;
+	cout << "Black had " << b.getFitness(2) << " Pieces." << endl;
+	if(b.getFitness(1) > b.getFitness(2))
+	  {
+	    cout << "White Was the Winner!" << endl; 
+	  }
+	else
+	  {
+	    cout << "Black Was the Winnder!" << endl;
+	  }
+      }
     return 0;
 }

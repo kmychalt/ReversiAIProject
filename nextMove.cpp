@@ -45,8 +45,11 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum) {
                 if (leaf->board.checkMove(coords, turn)) { //if they are a legal move
                     Node *n = new Node;
                     leaf->pointToNext[count] = n; //give node we are looking at a new child
+		    cout << "before segfault?"; //TEMPORARY REMOVE ACTIVE
+		    cout << " " << coords[0] << " " << coords[1] << " ";
                     n->board.updateBoardWithMove(coords, turn);
                     //n->board.printBoard();
+		    cout << " ***still before segfault" << endl; 
                     n->move[0] = i;
                     n->move[1] = j;
                     //NEED TO HAVE LINE CHANGE
