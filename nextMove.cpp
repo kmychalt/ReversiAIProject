@@ -62,7 +62,7 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum) {
         Node *m = new Node;
         m -> nullTerminal = true;
         leaf->pointToNext[count] = m;
-        //cout << "count" << count << endl; //TEMPORARY REMOVE
+        cout << "child " << count << endl; //TEMPORARY REMOVE ACTIVE
         /* for(int i = 0; i < count+1; i++)
           {
             cout <<"leaf->pointToNext[count+1]->nullTerminal" << leaf->pointToNext[i]->nullTerminal << endl;//TEMPORARY REMOVE
@@ -124,8 +124,9 @@ void Tree::AlphaBeta(int suggestedMove[2], int turn) {
     //looks for correct choice sets suggestedMove correctly
     while (root->pointToNext[i]->nullTerminal == false) {
         if (root->pointToNext[i]->ABvalue == traverseNum) {
-            suggestedMove = root->pointToNext[i]->move;
-            break;
+	  suggestedMove[0] = root->pointToNext[i]->move[0];
+	  suggestedMove[1] = root->pointToNext[i]->move[1]; 
+	  break; 
         }
         i++;
     }
