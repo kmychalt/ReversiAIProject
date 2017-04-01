@@ -48,6 +48,8 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum)
 		  Node *n = new Node;
 		  leaf->pointToNext[count] = n; //give node we are looking at a new child
 		  n->board.updateBoardWithMove(coords, turn);
+		  n->move[0] = i;
+		  n->move[1] = j;
 		  //NEED TO HAVE LINE CHANGE
 		  //n->board.printBoard(); //print for debugging 
 		  //cout << "current count" << count << endl; //TEMPORARY REMOVE
@@ -119,29 +121,26 @@ void Tree::destroyTree(Node* leaf) {
     delete leaf; //delete calls de-constructor and deallocates memory
 }
 
-void Tree::AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn) {
+void Tree::AlphaBeta(int suggestedMove[2], int turn) {
     //traverse tree, looking for alpha-beta values
   int traverseNum = 0;
-  Board b;
-  b.getBoardStatus(suggestedBoard);
-  //  cout << "is it here" << endl; //TEMPORARY REMOVE
-  traverseNum = traverseAlphaBeta(root, NUM_PLY, -1, BOARD_SIZE * BOARD_SIZE + 1, true, turn);
-  //cout << "starting Checking" << endl; //TEMPORARY REMOVE
-  //cout << traverseNum << " Traverse Num" << endl; //TEMPORARY REMOVE
+  traverseNum = traverseAlphaBeta(root, NUM_PLY, -1, BOARD_SIZE * BOARD_SIZE + 1, true, turn);  
   int i = 0;
-  //cout << "root->pointToNext[i]->nullTerminal " << root->pointToNext[i]->nullTerminal <<endl; //TEMPORARY REMOVE
+  //looks for correct choice sets suggestedMove correctly
   while(root->pointToNext[i]->nullTerminal == false)
     {
-      //cout << "in while" << root->pointToNext[i]->ABvalue << endl; //TEMPORARY REMOVE
       if(root->pointToNext[i]->ABvalue == traverseNum)
 	{
-	  root->pointToNext[i]->board.getBoardStatus(suggestedBoard);
+	  suggestedMove = root->pointToNext[i]->move; 
 	  break;
 	}
       i++;
+    } 
+  if(root->pointToNext[0]->nullTerminal)
+    {
+      suggestedMove[0] = -1;
+      suggestedMove[1] = -1;
     }
-  cout << "after While " << endl;
-  
 }
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {

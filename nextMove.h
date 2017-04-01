@@ -9,9 +9,8 @@ struct Node {
         int fitWhite;
         int fitBlack;
         Node *pointToNext[MAX_POSS_MOVES];
-        int alpha;
-        int beta;
         int ABvalue;
+        int move[2];
         bool isLeaf;
         bool isRoot;
         bool nullTerminal;
@@ -26,7 +25,7 @@ public:
     void insert(Node *leaf, int childNum);
     Node search(Node *leaf, int childNum);
     void destroyTree(Node *leaf);
-    void AlphaBeta(int suggestedBoard[BOARD_SIZE][BOARD_SIZE], int turn);
+    void AlphaBeta(int suggestedMove[2], int turn);
     int traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color);
     bool checkGameOver();
 private:
