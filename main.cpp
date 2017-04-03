@@ -74,11 +74,11 @@ int main() {
             b.getBoardStatus(startingBoard);
             Tree t;
             t.createTree(startingBoard, currentTurn);
-            cout << "after createTree" << endl; //TEMPORARY REMOVE
+            //cout << "after createTree" << endl; //TEMPORARY REMOVE
             int optimalMove[2];
             t.AlphaBeta(optimalMove, compColor);
             if (optimalMove[0] != -1) {
-                cout << "optimalMove:" << optimalMove[0] << "," << optimalMove[1] << endl;
+	      cout << "My Move: (" << optimalMove[0] << ", " << optimalMove[1] << ")"<< endl;
                 b.updateBoardWithMove(optimalMove, compColor);
             }
 

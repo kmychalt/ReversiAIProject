@@ -35,7 +35,6 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum) {
     int arr[BOARD_SIZE][BOARD_SIZE];
 
     cout << endl;
-    cout << "creating Leaf board" << endl; //TEMPORARY REMOVE
     //leaf->board.printBoard();
 
     if (leaf->isLeaf != true && plyNum != 0) {
@@ -45,29 +44,24 @@ void Tree::createLeaves(Node *leaf, int turn, int plyNum) {
                 if (leaf->board.checkMove(coords, turn)) { //if they are a legal move
                     Node *n = new Node;
                     leaf->pointToNext[count] = n; //give node we are looking at a new child
-		    cout << "before segfault?"; //TEMPORARY REMOVE ACTIVE
-		    cout << " " << coords[0] << " " << coords[1] << " ";
-                    n->board.updateBoardWithMove(coords, turn);
+		    n->board.updateBoardWithMove(coords, turn);
                     //n->board.printBoard();
-		    cout << " ***still before segfault" << endl; 
-                    n->move[0] = i;
+		    n->move[0] = i;
                     n->move[1] = j;
                     //NEED TO HAVE LINE CHANGE
                     //n->board.printBoard(); //print for debugging 
-                    //cout << "current count" << count << endl; //TEMPORARY REMOVE
-                    n->isLeaf = false;
+		    n->isLeaf = false;
                     n->nullTerminal = false;
 
                     count++;
                 }
             }
         }
-        //cout << "is the node being added correctly" << endl; //TEMPORARY REMOVE
+        
         Node *m = new Node;
         m -> nullTerminal = true;
         leaf->pointToNext[count] = m;
-        cout << "child " << count << endl; //TEMPORARY REMOVE ACTIVE
-        /* for(int i = 0; i < count+1; i++)
+	/* for(int i = 0; i < count+1; i++)
           {
             cout <<"leaf->pointToNext[count+1]->nullTerminal" << leaf->pointToNext[i]->nullTerminal << endl;//TEMPORARY REMOVE
           }
@@ -142,7 +136,7 @@ void Tree::AlphaBeta(int suggestedMove[2], int turn) {
 
 int Tree::traverseAlphaBeta(Node *leaf, int depth, int localAlpha, int localBeta, bool max, int color) {
     //if at a leaf of the tree return fitness 
-    cout << leaf->ABvalue << "     LEAF ABvalue" << endl; //TEMPORARY REMOVE
+    //cout << leaf->ABvalue << "     LEAF ABvalue" << endl; //TEMPORARY REMOVE
     int i = 0;
     /*while(true) //TEMPORARY REMOVE
       {

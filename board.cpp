@@ -27,9 +27,7 @@ Board::Board() {
 void Board::getFitness(int* fitness) {
     fitness[0] = getFitness(1);
     fitness[1] = getFitness(2);
-    cout << "Fitness for white is: " << fitness[0] << endl;
-    cout << "Fitness for black is: " << fitness[1] << endl;
-    
+        
 }
 
 /* PARAMETERS: integer color that corresponds to the color on the board being 
@@ -406,8 +404,7 @@ bool Board::checkMove(int coords[2],int color)
       return false;
     }
   //check everything
-  //cout << "in check everything in checkMove" << endl; //TEMPORARY REMOVE
-
+  
 	if(board[coords[0]][coords[1]-1] == checkColor)
 	  {
 	    checkCoords[0] = coords[0];         // check x o x 
